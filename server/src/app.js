@@ -11,13 +11,15 @@ app.use(
     })
 );
 
-app.use(express.json({ limit: "16kb" }));
-app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Routes imports
 import usersRoutes from "./routes/user.routes.js";
+import eventsRoutes from "./routes/event.routes.js";
 
 app.use("/api/v1/users", usersRoutes);
+app.use("/api/v1/event", eventsRoutes);
 
 export { app };

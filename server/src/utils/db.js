@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const DB_NAME = "event-management-system"
+const DB_NAME = "event-management-system";
 
 const connectDB = async () => {
     try {

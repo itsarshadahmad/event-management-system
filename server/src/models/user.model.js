@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema(
     {
@@ -18,12 +19,6 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
             required: [true, "Password is required"],
-        },
-        // TODO: Modify changes
-        role: {
-            type: String,
-            enum: ["admin", "organizer", "attendee"],
-            default: "attendee",
         },
     },
     { timestamps: true }
@@ -46,14 +41,15 @@ userSchema.methods.generateAccessToken = function () {
         {
             _id: this._id,
             email: this.email,
-            username: this.username,
             fullName: this.fullName,
         },
-        process.env.ACCESS_TOKEN_SECRET,
-        {
-            expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
-        }
+        process.env.ACCESS_TOKEN_SECRET
+        // {
+        //     expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+        // }
     );
 };
 
-export default mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+
+export default User;
