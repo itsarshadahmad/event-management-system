@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema(
         resetToken: {
             type: String,
         },
+        ticket: {
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: "Event",
+        },
+        // TODO: Profile photo -> Cloudinary
+        profileImage: {
+            type: String,
+        },
     },
     { timestamps: true }
 );
