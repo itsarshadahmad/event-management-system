@@ -9,7 +9,18 @@ import {
     getEventDetails,
     getEventByIdFromUser,
     getAllEvents,
+    getEventsBySearch,
 } from "../controllers/event.controller.js";
+
+import {
+    handleNewAnnouncement,
+    handleAnnouncementDelete,
+} from "../controllers/announcement.controller.js";
+
+import {
+    handleNewKeySpeaker,
+    handleDeleteKeySpeaker,
+} from "../controllers/keySpeaker.controller.js";
 
 const router = express.Router();
 
@@ -23,13 +34,14 @@ router.get("/delete/:id", authenticateUser, handleDeleteEventByUser);
 // Publicly available events
 router.get("/public/:id", getEventDetails);
 router.get("/all", getAllEvents);
-
-// TODO: Get latest events
-// Filter upcoming events remove previous events
-// TODO: Get all events by categories, tag, date (filter) -> Pagination
+// TODO: Get all events by categories, tag, date (filter) & Search events
 router.get("/filter", getEventsByFilter);
+router.post("/search", getEventsBySearch);
 
-// TODO: CRUD for announcements
-// TODO: CRUD for keySpeakers
+router.post("/speaker/new", authenticateUser, handleNewKeySpeaker);
+// TODO: Delete keySpeaker
+router.post("/speaker/delete", authenticateUser, handleDeleteKeySpeaker);
+router.post("/announcement/new", authenticateUser, handleNewAnnouncement);
+router.post("/announcement/delete", authenticateUser, handleAnnouncementDelete);
 
 export default router;

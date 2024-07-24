@@ -186,7 +186,13 @@ async function getEventsByFilter(req, res) {
             new Error("Invalid filter");
         }
 
-        const events = await find({ tag, categories, date });
+        // TODO: Correct Filter Logic
+        const events = await Event.find({
+            tag,
+            categories,
+            date,
+        });
+
         if (!events) {
             return res
                 .status(404)
@@ -198,6 +204,7 @@ async function getEventsByFilter(req, res) {
         return res.status(400).json({
             message:
                 "Invalid filter parameters. Please provide tag, categories, or date query parameters.",
+            error: error.message,
         });
     }
 }
@@ -234,6 +241,30 @@ async function getAllEvents(req, res) {
     }
 }
 
+async function getEventsBySearch(req, res) {
+    try {
+        const { searchQuery } = req.query;
+        if (!searchQuery) {
+            throw new Error("Invalid search query");
+        }
+
+        // TODO: Implement regex in search functionality
+        const events = await Event.find({ title: searchQuery });
+        if (!events) {
+            return res.status(404).json({
+                message: "No events found with the given search query",
+            });
+        }
+
+        return res.status(200).json(events);
+    } catch (error) {
+        return res.status(400).json({
+            message: "Invalid search query. Please provide a search query.",
+            error: error.message,
+        });
+    }
+}
+
 export {
     createNewEventByUser,
     handleUpdateEventByUser,
@@ -243,4 +274,5 @@ export {
     getEventDetails,
     getEventByIdFromUser,
     getAllEvents,
+    getEventsBySearch,
 };
