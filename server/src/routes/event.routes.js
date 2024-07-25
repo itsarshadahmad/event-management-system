@@ -22,6 +22,8 @@ import {
     handleDeleteKeySpeaker,
 } from "../controllers/keySpeaker.controller.js";
 
+import { handleRegisterForEvent } from "../controllers/ticket.controller.js";
+
 const router = express.Router();
 
 // User created events (Admin)
@@ -43,5 +45,8 @@ router.post("/speaker/new", authenticateUser, handleNewKeySpeaker);
 router.post("/speaker/delete", authenticateUser, handleDeleteKeySpeaker);
 router.post("/announcement/new", authenticateUser, handleNewAnnouncement);
 router.post("/announcement/delete", authenticateUser, handleAnnouncementDelete);
+
+// Register for events
+router.post("/register/:id", authenticateUser, handleRegisterForEvent);
 
 export default router;
