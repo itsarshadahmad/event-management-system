@@ -186,7 +186,7 @@ async function getEventsByFilter(req, res) {
             new Error("Invalid filter");
         }
 
-        // TODO: Correct Filter Logic
+        // TODO: Correct Filter Logic -> OR Operation
         const events = await Event.find({
             tag,
             categories,

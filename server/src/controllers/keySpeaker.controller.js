@@ -30,9 +30,15 @@ async function handleDeleteKeySpeaker(req, res) {
         }
 
         // TODO: Unable to remove key speaker
-        const event = await Event.findById({ _id: eventId }).updateOne({
-            $pull: { keySpeaker: { _id: keySpeakerId } },
-        });
+        const event = await Event.findByIdAndUpdate(
+            { _id: eventId },
+            { $pull: { keySpeaker: { _id: keySpeakerId } } },
+            { new: true }
+        );
+        // const event = await Event.findById({ _id: eventId });
+        // await event.updateOne({
+        //     $pull: { keySpeaker: { _id: keySpeakerId } },
+        // });
 
         if (!event) new Error("Couldn't find event");
 
