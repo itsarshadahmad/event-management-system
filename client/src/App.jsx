@@ -6,26 +6,31 @@ import SetEvent from "./components/event/set-event.component";
 import NewPassword from "./components/auth/new-password.components";
 import Partials from "./components/partials/partials.component";
 import Home from "./components/home/home.component";
+import EventAdmin from "./components/home/event-admin.component";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: (
-            <>
-                <Partials>
-                    <Home />
-                </Partials>
-            </>
+            <Partials>
+                <EventAdmin />
+            </Partials>
+        ),
+    },
+    {
+        path: "/home",
+        element: (
+            <Partials>
+                <Home />
+            </Partials>
         ),
     },
     {
         path: "/set-event",
         element: (
-            <>
-                <Partials>
-                    <SetEvent />
-                </Partials>
-            </>
+            <Partials>
+                <SetEvent />
+            </Partials>
         ),
     },
     {

@@ -16,6 +16,7 @@
     "@heroicons/react": "^2.1.5",
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
+    "@mui/styled-engine": "^6.0.2",
     "@mui/x-date-pickers": "^7.15.0",
     "@reduxjs/toolkit": "^2.2.6",
     "antd": "^5.19.3",

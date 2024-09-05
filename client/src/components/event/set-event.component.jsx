@@ -29,7 +29,14 @@ const VisuallyHiddenInput = styled("input")({
     width: 1,
 });
 
-const eventTags = ["Conf"];
+const eventTags = [
+    "Workshop",
+    "Seminar",
+    "Conference",
+    "Meetup",
+    "Bootcamp",
+    "Other",
+];
 
 export default function SetEvent() {
     const [tag, setTag] = useState("");

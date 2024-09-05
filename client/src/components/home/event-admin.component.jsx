@@ -1,6 +1,6 @@
 import { Box, Container, Typography } from "@mui/material";
 
-export default function Dashboard() {
+export default function EventAdmin() {
     return (
         <Container>
             <Box>
