@@ -7,13 +7,31 @@ import NewPassword from "./components/auth/new-password.components";
 import Partials from "./components/partials/partials.component";
 import Home from "./components/home/home.component";
 import EventAdmin from "./components/home/event-admin.component";
+import AddAnnouncement from "./components/home/add-announcement.component";
+import AddKeySpeaker from "./components/event/add-key-speaker.component";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: (
             <Partials>
+                <AddKeySpeaker />
+            </Partials>
+        ),
+    },
+    {
+        path: "/admin",
+        element: (
+            <Partials>
                 <EventAdmin />
+            </Partials>
+        ),
+    },
+    {
+        path: "/announcement",
+        element: (
+            <Partials>
+                <AddAnnouncement />
             </Partials>
         ),
     },

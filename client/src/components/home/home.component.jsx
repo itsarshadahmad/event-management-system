@@ -2,31 +2,42 @@ import {
     Box,
     Container,
     FormControl,
-    Input,
     InputAdornment,
+    OutlinedInput,
     Paper,
     Typography,
 } from "@mui/material";
 import EventCard from "../event/event-card.component";
-import SearchIcon from "@mui/icons-material/Search";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import { useState } from "react";
 
 export default function Home() {
+    const [search, setSearch] = useState("");
+
     return (
         <Container>
-            {/* <Typography component="h1" variant="h3">
-                Home
-            </Typography> */}
-
             <FormControl variant="standard" sx={{ my: 2, display: "flex" }}>
-                <Input
-                    id="input-with-icon-adornment"
-                    placeholder="Search Events"
-                    startAdornment={
-                        <InputAdornment position="start">
-                            <SearchIcon />
-                        </InputAdornment>
-                    }
-                />
+                <FormControl sx={{ width: "100%" }} variant="outlined">
+                    <OutlinedInput
+                        size="small"
+                        id="search"
+                        placeholder="Search…"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        sx={{ flexGrow: 1 }}
+                        startAdornment={
+                            <InputAdornment
+                                position="start"
+                                sx={{ color: "text.primary" }}
+                            >
+                                <SearchRoundedIcon fontSize="small" />
+                            </InputAdornment>
+                        }
+                        inputProps={{
+                            "aria-label": "search",
+                        }}
+                    />
+                </FormControl>
             </FormControl>
 
             <Paper
