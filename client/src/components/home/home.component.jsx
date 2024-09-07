@@ -99,7 +99,7 @@ export default function Home() {
                                 key={i}
                                 title={val.title}
                                 description={val.description.split("", 120)}
-                                link={"#"}
+                                id={val._id}
                             />
                         ))}
                     </Box>
@@ -122,7 +122,7 @@ export default function Home() {
                         key={i}
                         title={val.title}
                         description={val.description.split("", 120)}
-                        link={"#"}
+                        id={val._id}
                     />
                 ))}
             </Box>

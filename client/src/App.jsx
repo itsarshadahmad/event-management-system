@@ -2,7 +2,6 @@ import Event from "./components/event/event.component";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Signin from "./components/auth/signin.component";
 import Signup from "./components/auth/signup.component";
-import SetEvent from "./components/event/set-event.component";
 import NewPassword from "./components/auth/new-password.components";
 import Partials from "./components/partials/partials.component";
 import Home from "./components/home/home.component";
@@ -11,6 +10,9 @@ import AddAnnouncement from "./components/home/add-announcement.component";
 import AddKeySpeaker from "./components/event/add-key-speaker.component";
 import Error from "./components/partials/error.component";
 import Logout from "./components/auth/logout.component";
+import DeleteEvent from "./components/event/delete-event.component";
+import AddEvent from "./components/event/add-event.component";
+import UpdateEvent from "./components/event/update-event.component";
 
 const router = createBrowserRouter([
     {
@@ -49,15 +51,15 @@ const router = createBrowserRouter([
         path: "/new-event",
         element: (
             <Partials>
-                <SetEvent />
+                <AddEvent />
             </Partials>
         ),
     },
     {
-        path: "/update-event",
+        path: "/update/:id",
         element: (
             <Partials>
-                <SetEvent />
+                <UpdateEvent />
             </Partials>
         ),
     },
@@ -66,6 +68,14 @@ const router = createBrowserRouter([
         element: (
             <Partials>
                 <Event />
+            </Partials>
+        ),
+    },
+    {
+        path: "/delete/:id",
+        element: (
+            <Partials>
+                <DeleteEvent />
             </Partials>
         ),
     },

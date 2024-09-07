@@ -8,9 +8,8 @@ import {
     Paper,
 } from "@mui/material";
 import KeySpeaker from "./key-speaker.component";
-// import { events } from "../../data";
 import Announcements from "./announcements.component";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../environment/constant";
@@ -36,8 +35,6 @@ export default function Event() {
     }, [id]);
 
     if (!event) return <Error message="Event not found." />;
-
-    // const event = events[0];
 
     return (
         <Container
@@ -177,29 +174,40 @@ export default function Event() {
                 </Box>
             </Paper>
 
-            <Typography variant="h1" sx={{ fontSize: "3rem", mt: 1, mb: 4 }}>
-                Key Speaker
-            </Typography>
+            {event.KeySpeaker.length > 0 && (
+                <>
+                    <Typography
+                        variant="h1"
+                        sx={{ fontSize: "3rem", mt: 1, mb: 4 }}
+                    >
+                        Key Speaker
+                    </Typography>
 
-            <Box
-                sx={{
-                    display: "flex",
-                    m: 1,
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                }}
-            >
-                {event.KeySpeaker.map((item, index) => (
-                    <Paper sx={{ m: 2, py: 3 }} elevation={5} key={index}>
-                        <KeySpeaker
-                            key={index}
-                            name={item.name}
-                            bio={item.bio}
-                            topic={item.topic}
-                        />
-                    </Paper>
-                ))}
-            </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            m: 1,
+                            flexWrap: "wrap",
+                            justifyContent: "center",
+                        }}
+                    >
+                        {event.KeySpeaker.map((item, index) => (
+                            <Paper
+                                sx={{ m: 2, py: 3 }}
+                                elevation={5}
+                                key={index}
+                            >
+                                <KeySpeaker
+                                    key={index}
+                                    name={item.name}
+                                    bio={item.bio}
+                                    topic={item.topic}
+                                />
+                            </Paper>
+                        ))}
+                    </Box>
+                </>
+            )}
 
             {event.announcement.length > 0 && (
                 <Paper sx={{ p: 2 }} elevation={4}>

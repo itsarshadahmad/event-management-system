@@ -16,6 +16,9 @@ import dayjs from "dayjs";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { API_URL } from "../../environment/constant";
 
 const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
@@ -38,7 +41,8 @@ const eventTags = [
     "Other",
 ];
 
-export default function SetEvent() {
+export default function UpdateEvent() {
+    const { id } = useParams();
     const [tag, setTag] = useState("");
     const [category, setCategory] = useState("");
     const [categories, setCategories] = useState([]);
@@ -49,8 +53,62 @@ export default function SetEvent() {
     const [image, setImage] = useState(null);
     const [capacity, setCapacity] = useState("");
     const [duration, setDuration] = useState("");
-    const [hostedBy, setHostedBy] = useState("");
     const [imageAcknowledgement, setImageAcknowledgement] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (id) {
+            axios
+                .get(`${API_URL}/event/public/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                })
+                .then((res) => {
+                    const event = res.data;
+                    if (event) {
+                        setTitle(event.title);
+                        setDescription(event.description);
+                        setVenue(event.venue);
+                        setDateTime(dayjs(event.dateTime));
+                        setCategory(event.category);
+                        setTag(event.tag);
+                        setCapacity(event.capacity);
+                        setDuration(event.duration);
+                        setCategory(event.categories);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [id]);
+
+    const handleSubmit = async () => {
+        "/update/:id";
+        await axios.post(
+            `${API_URL}/event/update/${id}`,
+            {
+                title,
+                description,
+                venue,
+                dateTime,
+                category,
+                tag,
+                categories,
+                capacity,
+                duration,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        navigate("/dashboard");
+    };
 
     const handleCategoryChange = (event) => {
         setCategory(event.target.value);
@@ -94,14 +152,14 @@ export default function SetEvent() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
-                <TextField
+                {/* <TextField
                     id="outlined-basic"
                     label="Hosted By"
                     variant="outlined"
                     sx={{ mb: 1 }}
                     value={hostedBy}
                     onChange={(e) => setHostedBy(e.target.value)}
-                />
+                /> */}
 
                 <TextField
                     multiline
@@ -196,6 +254,7 @@ export default function SetEvent() {
                 </Button>
                 <Button
                     variant={"outlined"}
+                    onClick={handleSubmit}
                     sx={{
                         color: "secondary.main",
                         fontSize: "1rem",
@@ -205,7 +264,7 @@ export default function SetEvent() {
                         },
                     }}
                 >
-                    Register
+                    Update
                 </Button>
             </FormControl>
         </Container>

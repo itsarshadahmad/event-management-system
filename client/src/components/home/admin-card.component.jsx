@@ -57,6 +57,7 @@ export default function AdminCard({ title, description, id }) {
                     variant="outlined"
                     color="secondary"
                     sx={{ m: 0.5, width: "100%" }}
+                    href={`/update/${id}`}
                 >
                     Edit
                 </Button>
@@ -64,6 +65,7 @@ export default function AdminCard({ title, description, id }) {
                     variant="outlined"
                     color="error"
                     sx={{ m: 0.5, width: "100%" }}
+                    href={`/delete/${id}`}
                 >
                     Delete Event
                 </Button>
