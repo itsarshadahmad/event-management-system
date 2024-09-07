@@ -1,8 +1,9 @@
 import Event from "../models/event.model.js";
+import User from "../models/user.model.js";
 
 async function createNewEventByUser(req, res) {
     try {
-        const user = req.user;
+        // const user = req.user;
         const {
             title,
             description,
@@ -13,9 +14,14 @@ async function createNewEventByUser(req, res) {
             capacity,
             duration,
             KeySpeaker,
+            email,
         } = req.body;
 
-        if (!title || !description || !date || !venue || !tag || !categories) {
+        const user = await User.findOne({ email }).catch((err) =>
+            console.error(err)
+        );
+
+        if (!title || !description || !date || !venue || !tag) {
             return res.status(400).json({
                 message:
                     "Missing required fields: title, description, date, venue, tag, categories",

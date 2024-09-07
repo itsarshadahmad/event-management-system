@@ -71,7 +71,7 @@ const EventSchema = new mongoose.Schema(
         },
         categories: {
             type: [String],
-            required: true,
+            // required: true,
         },
         organizer: {
             type: mongoose.Schema.Types.ObjectId,

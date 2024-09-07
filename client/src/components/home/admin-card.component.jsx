@@ -50,8 +50,17 @@ export default function AdminCard({ title, description, id }) {
                     variant="outlined"
                     color="success"
                     sx={{ m: 0.5, width: "100%" }}
+                    href={`/add-announcement/${id}`}
                 >
                     Add Announcement
+                </Button>
+                <Button
+                    variant="outlined"
+                    color="warning"
+                    sx={{ m: 0.5, width: "100%" }}
+                    href={`/add-speaker/${id}`}
+                >
+                    Add Speaker
                 </Button>
                 <Button
                     variant="outlined"

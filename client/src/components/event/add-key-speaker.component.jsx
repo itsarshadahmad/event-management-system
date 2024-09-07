@@ -5,12 +5,38 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
+import axios from "axios";
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { API_URL } from "../../environment/constant";
 
 export default function AddKeySpeaker() {
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [topic, setTopic] = useState();
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        axios.post(
+            `${API_URL}/event/speaker/new`,
+            {
+                name: title,
+                bio: description,
+                topic,
+                eventId: id,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        navigate("/dashboard");
+    };
 
     return (
         <Container
@@ -73,6 +99,7 @@ export default function AddKeySpeaker() {
                             borderColor: "secondary.main",
                         },
                     }}
+                    onClick={handleSubmit}
                 >
                     Add
                 </Button>

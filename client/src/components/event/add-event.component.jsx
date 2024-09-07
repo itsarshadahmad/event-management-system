@@ -16,7 +16,7 @@ import dayjs from "dayjs";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../environment/constant";
 
@@ -46,7 +46,7 @@ export default function AddEvent() {
     const [tag, setTag] = useState("");
     const [category, setCategory] = useState("");
     const [categories, setCategories] = useState([]);
-    const [dateTime, setDateTime] = useState(dayjs());
+    const [date, setDate] = useState(dayjs());
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [venue, setVenue] = useState("");
@@ -55,6 +55,7 @@ export default function AddEvent() {
     const [duration, setDuration] = useState("");
     const [hostedBy, setHostedBy] = useState("");
     const [imageAcknowledgement, setImageAcknowledgement] = useState(false);
+    const navigate = useNavigate();
 
     const handleCategoryChange = (event) => {
         setCategory(event.target.value);
@@ -65,6 +66,32 @@ export default function AddEvent() {
             setImageAcknowledgement(true);
         }
     }, [image]);
+
+    const handleSubmit = async () => {
+        const email = localStorage.getItem("email");
+        await axios.post(
+            `${API_URL}/event/create`,
+            {
+                title,
+                description,
+                venue,
+                date,
+                category,
+                tag,
+                categories,
+                capacity,
+                duration,
+                hostedBy,
+                email,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        navigate("/dashboard");
+    };
 
     return (
         <Container
@@ -138,8 +165,8 @@ export default function AddEvent() {
                     <DateTimePicker
                         label="Date And Time"
                         sx={{ mb: 1 }}
-                        value={dateTime}
-                        onChange={(v) => setDateTime(v)}
+                        value={date}
+                        onChange={(v) => setDate(v)}
                     />
                 </LocalizationProvider>
                 <TextField
@@ -208,6 +235,7 @@ export default function AddEvent() {
                             borderColor: "secondary.main",
                         },
                     }}
+                    onClick={handleSubmit}
                 >
                     Register
                 </Button>

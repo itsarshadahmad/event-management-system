@@ -20,10 +20,6 @@ export default function DeleteEvent() {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             })
-            .then((res) => {
-                // setEvent(res.data);
-                console.log(res);
-            })
             .catch((err) => {
                 console.log(err);
             });

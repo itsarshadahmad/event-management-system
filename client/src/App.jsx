@@ -16,7 +16,7 @@ import UpdateEvent from "./components/event/update-event.component";
 
 const router = createBrowserRouter([
     {
-        path: "/add-speaker",
+        path: "/add-speaker/:id",
         element: (
             <Partials>
                 <AddKeySpeaker />
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "/announcement",
+        path: "/add-announcement/:id",
         element: (
             <Partials>
                 <AddAnnouncement />
