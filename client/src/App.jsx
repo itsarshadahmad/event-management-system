@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "/admin",
+        path: "/dashboard",
         element: (
             <Partials>
                 <EventAdmin />
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "/set-event",
+        path: "/new-event",
         element: (
             <Partials>
                 <SetEvent />
@@ -54,7 +54,15 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "/event",
+        path: "/update-event",
+        element: (
+            <Partials>
+                <SetEvent />
+            </Partials>
+        ),
+    },
+    {
+        path: "/event/:id",
         element: (
             <Partials>
                 <Event />

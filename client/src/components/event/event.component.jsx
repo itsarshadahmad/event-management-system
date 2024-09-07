@@ -8,11 +8,36 @@ import {
     Paper,
 } from "@mui/material";
 import KeySpeaker from "./key-speaker.component";
-import { events } from "../../data";
+// import { events } from "../../data";
 import Announcements from "./announcements.component";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { API_URL } from "../../environment/constant";
+import Error from "../partials/error.component";
 
 export default function Event() {
-    const event = events[0];
+    const { id } = useParams("id");
+    const [event, setEvent] = useState(null);
+
+    useEffect(() => {
+        axios
+            .get(`${API_URL}/event/public/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            })
+            .then((res) => {
+                setEvent(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [id]);
+
+    if (!event) return <Error message="Event not found." />;
+
+    // const event = events[0];
 
     return (
         <Container
@@ -165,43 +190,50 @@ export default function Event() {
                 }}
             >
                 {event.KeySpeaker.map((item, index) => (
-                    <>
-                        <Paper sx={{ m: 2, py: 3 }} elevation={5}>
-                            <KeySpeaker
-                                key={index}
-                                name={item.name}
-                                bio={item.bio}
-                                topic={item.topic}
-                            />
-                        </Paper>
-                    </>
+                    <Paper sx={{ m: 2, py: 3 }} elevation={5} key={index}>
+                        <KeySpeaker
+                            key={index}
+                            name={item.name}
+                            bio={item.bio}
+                            topic={item.topic}
+                        />
+                    </Paper>
                 ))}
             </Box>
 
-            <Paper sx={{ p: 2 }} elevation={4}>
-                <Typography
-                    variant="h5"
-                    sx={{
-                        fontSize: {
-                            xs: "2rem",
-                            sm: "3rem",
-                        },
-                        textAlign: "center",
-                    }}
-                >
-                    Announcements
-                </Typography>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        justifyContent: "center",
-                        gap: 2,
-                    }}
-                >
-                    <Announcements key={1} />
-                </Box>
-            </Paper>
+            {event.announcement.length > 0 && (
+                <Paper sx={{ p: 2 }} elevation={4}>
+                    <Typography
+                        variant="h5"
+                        sx={{
+                            fontSize: {
+                                xs: "2rem",
+                                sm: "3rem",
+                            },
+                            textAlign: "center",
+                        }}
+                    >
+                        Announcements
+                    </Typography>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "center",
+                            gap: 2,
+                        }}
+                    >
+                        {event.announcement.map((item, index) => (
+                            <Announcements
+                                key={index}
+                                title={item.title}
+                                description={item.description}
+                                date={item.date}
+                            />
+                        ))}
+                    </Box>
+                </Paper>
+            )}
 
             <Box
                 sx={{ display: "flex", m: 1, mt: 3, justifyContent: "center" }}

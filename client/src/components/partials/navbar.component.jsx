@@ -5,15 +5,12 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-// import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-
-const settings = ["New Event", "Dashboard", "Logout"];
 
 export default function Navbar({ navButtonPage }) {
     if (!navButtonPage) {
@@ -31,14 +28,6 @@ export default function Navbar({ navButtonPage }) {
         }
     }, [token]);
 
-    // const handleToggleAuth = (event) => {
-    //     event.preventDefault();
-    //     setIsAuth(!isAuth);
-    // };
-
-    // const handleOpenNavMenu = (event) => {
-    //     setAnchorElNav(event.currentTarget);
-    // };
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -135,16 +124,26 @@ export default function Navbar({ navButtonPage }) {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    {settings.map((setting) => (
-                                        <MenuItem
-                                            key={setting}
-                                            onClick={handleCloseUserMenu}
-                                        >
-                                            <Link to={`/${setting}`}>
-                                                {setting}
-                                            </Link>
-                                        </MenuItem>
-                                    ))}
+                                    <MenuItem
+                                        key={1}
+                                        onClick={handleCloseUserMenu}
+                                    >
+                                        <Link to={`/new-event`}>New Event</Link>
+                                    </MenuItem>
+
+                                    <MenuItem
+                                        key={2}
+                                        onClick={handleCloseUserMenu}
+                                    >
+                                        <Link to={`/dashboard`}>Dashboard</Link>
+                                    </MenuItem>
+
+                                    <MenuItem
+                                        key={3}
+                                        onClick={handleCloseUserMenu}
+                                    >
+                                        <Link to={`/Logout`}>Logout</Link>
+                                    </MenuItem>
                                 </Menu>
                             </Box>
                         </>

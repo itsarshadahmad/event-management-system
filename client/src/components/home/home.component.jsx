@@ -9,11 +9,41 @@ import {
 } from "@mui/material";
 import EventCard from "../event/event-card.component";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { API_URL } from "../../environment/constant";
 import { events } from "../../data";
 
 export default function Home() {
     const [search, setSearch] = useState("");
+    const [allEvents, setAllEvents] = useState([]);
+    const [userEvents, setUserEvents] = useState([]);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            axios
+                .get(`${API_URL}/event/user/all`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                })
+                .then((res) => setUserEvents(res.data));
+            setUserEvents(events);
+        }
+
+        axios
+            .get(`${API_URL}/event/all`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            })
+            .then((res) => {
+                setAllEvents(res.data);
+            });
+    }, []);
 
     return (
         <Container>
@@ -41,38 +71,40 @@ export default function Home() {
                 </FormControl>
             </FormControl>
 
-            <Paper
-                sx={{
-                    p: 2,
-                    my: 2,
-                }}
-                elevation={3}
-            >
-                <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
-                    Registered Events
-                </Typography>
-                <Box
+            {userEvents.length > 0 && (
+                <Paper
                     sx={{
-                        display: "grid",
-                        gridTemplateColumns: {
-                            xs: "repeat(auto-fit, minmax(200px, 1fr))",
-                            sm: "repeat(auto-fit, minmax(250px, 1fr))",
-                        },
-                        gridGap: 20,
-                        justifyContent: "center",
-                        alignItems: "center",
+                        p: 2,
+                        my: 2,
                     }}
+                    elevation={3}
                 >
-                    {events.map((val, i) => (
-                        <EventCard
-                            key={i}
-                            title={val.title}
-                            description={val.description.split("", 120)}
-                            link={"#"}
-                        />
-                    ))}
-                </Box>
-            </Paper>
+                    <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
+                        Registered Events
+                    </Typography>
+                    <Box
+                        sx={{
+                            display: "grid",
+                            gridTemplateColumns: {
+                                xs: "repeat(auto-fit, minmax(200px, 1fr))",
+                                sm: "repeat(auto-fit, minmax(250px, 1fr))",
+                            },
+                            gridGap: 20,
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        {userEvents.map((val, i) => (
+                            <EventCard
+                                key={i}
+                                title={val.title}
+                                description={val.description.split("", 120)}
+                                link={"#"}
+                            />
+                        ))}
+                    </Box>
+                </Paper>
+            )}
             <Typography component="h1" variant="h4" sx={{ mt: 4, mb: 1 }}>
                 Events
             </Typography>
@@ -85,7 +117,7 @@ export default function Home() {
                     alignItems: "center",
                 }}
             >
-                {events.map((val, i) => (
+                {allEvents.map((val, i) => (
                     <EventCard
                         key={i}
                         title={val.title}

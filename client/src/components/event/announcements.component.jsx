@@ -4,17 +4,17 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export default function Announcements() {
+export default function Announcements({ title, description, date }) {
     return (
         <Card sx={{ width: "100%", my: "16px" }}>
             <CardContent>
                 <Typography variant="h5" component="div">
-                    Please bring your laptop
+                    {title}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Please bring your laptop to code with instructor.
+                    {description}.
                 </Typography>
-                <Typography variant="body2">Date</Typography>
+                <Typography variant="body2">Date: {date}</Typography>
             </CardContent>
             <CardActions>
                 <Button size="small">Learn More</Button>

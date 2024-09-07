@@ -7,9 +7,9 @@ import {
     Typography,
 } from "@mui/material";
 
-export default function AdminCard({ title, description }) {
+export default function AdminCard({ title, description, id }) {
     return (
-        <Card sx={{ maxWidth: "20rem" }}>
+        <Card sx={{ maxWidth: "18rem" }}>
             <CardMedia
                 component="img"
                 alt="green iguana"
@@ -39,7 +39,11 @@ export default function AdminCard({ title, description }) {
                     flexWrap: "wrap",
                 }}
             >
-                <Button variant="outlined" sx={{ m: 0.5, width: "100%" }}>
+                <Button
+                    variant="outlined"
+                    sx={{ m: 0.5, width: "100%" }}
+                    href={`/event/${id}`}
+                >
                     View
                 </Button>
                 <Button

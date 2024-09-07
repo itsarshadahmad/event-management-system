@@ -1,4 +1,5 @@
 import {
+    Box,
     Container,
     FormControl,
     InputAdornment,
@@ -6,11 +7,33 @@ import {
     Typography,
 } from "@mui/material";
 import AdminCard from "./admin-card.component";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { API_URL } from "../../environment/constant";
 
 export default function EventAdmin() {
     const [search, setSearch] = useState("");
+    const navigate = useNavigate();
+    const [events, setEvents] = useState([]);
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        navigate("/signin");
+    }
+
+    useEffect(() => {
+        axios
+            .get(`${API_URL}/event/user/all`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            })
+            .then((res) => {
+                setEvents(res.data);
+            });
+    }, []);
 
     const title = "Web dev bootcamp";
     const description =
@@ -44,7 +67,26 @@ export default function EventAdmin() {
             <Typography gutterBottom variant="h4" component="div">
                 Your Events
             </Typography>
-            <AdminCard title={title} description={description.split("", 150)} />
+            <Box
+                sx={{
+                    display: "flex",
+                    gap: 2,
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    // justifyContent: "center",
+                }}
+            >
+                {events.map((event, index) => (
+                    <>
+                        <AdminCard
+                            key={index}
+                            title={event.title}
+                            description={event.description.split("", 150)}
+                            id={event._id}
+                        />
+                    </>
+                ))}
+            </Box>
         </Container>
     );
 }
