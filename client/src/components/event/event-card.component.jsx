@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export default function EventCard() {
+export default function EventCard({ title, description, link }) {
     return (
         <Card sx={{ maxWidth: "20rem" }}>
             <CardMedia
@@ -16,14 +16,14 @@ export default function EventCard() {
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Event Name
+                    {title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Description ...
+                    {description}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" variant="outlined">
+                <Button size="small" variant="outlined" href={`${link}`}>
                     Learn More
                 </Button>
             </CardActions>

@@ -44,12 +44,15 @@ async function handleLogin(req, res) {
 
             if (isPasswordCorrect) {
                 const token = await user.generateAccessToken();
-                return res
-                    .status(200)
-                    .cookie("Authorization", token, authOptions)
-                    .json({
-                        message: "User logged in successfully",
-                    });
+                return (
+                    res
+                        .status(200)
+                        // .cookie("Authorization", token, authOptions)
+                        .json({
+                            Authorization: token,
+                            // message: "User logged in successfully",
+                        })
+                );
             } else {
                 return res.status(400).json({ message: "Invalid password" });
             }

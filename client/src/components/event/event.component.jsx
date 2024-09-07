@@ -200,8 +200,6 @@ export default function Event() {
                     }}
                 >
                     <Announcements key={1} />
-                    <Announcements key={2} />
-                    <Announcements key={3} />
                 </Box>
             </Paper>
 

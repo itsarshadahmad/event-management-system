@@ -20,6 +20,7 @@ export default function SignIn() {
     const [forgotPasswordPage, setForgotPasswordPage] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [token, setToken] = useState("");
 
     const openForgotPasswordPopup = (event) => {
         event.preventDefault();
@@ -33,15 +34,17 @@ export default function SignIn() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const x = await api
+        await api
             .post(`/users/login`, {
                 email,
                 password,
             })
-            // .then((resp) => resp)
+            .then((res) => {
+                setToken(res.data.Authorization);
+                document.cookie = `Authorization=${res.data.Authorization}`;
+                localStorage.setItem("Authorization", res.data.Authorization);
+            })
             .catch((err) => console.error(err));
-        console.log(x);
-        console.log(document.cookie);
     };
 
     return (
