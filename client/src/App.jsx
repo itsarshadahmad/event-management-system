@@ -9,6 +9,7 @@ import Home from "./components/home/home.component";
 import EventAdmin from "./components/home/event-admin.component";
 import AddAnnouncement from "./components/home/add-announcement.component";
 import AddKeySpeaker from "./components/event/add-key-speaker.component";
+import Error from "./components/partials/error.component";
 
 const router = createBrowserRouter([
     {
@@ -80,6 +81,14 @@ const router = createBrowserRouter([
         element: (
             <Partials>
                 <NewPassword />
+            </Partials>
+        ),
+    },
+    {
+        path: "*",
+        element: (
+            <Partials>
+                <Error />
             </Partials>
         ),
     },
