@@ -7,7 +7,7 @@ import {
     Typography,
 } from "@mui/material";
 
-export default function AdminCard() {
+export default function AdminCard({ title, description }) {
     return (
         <Card sx={{ maxWidth: "20rem" }}>
             <CardMedia
@@ -23,17 +23,14 @@ export default function AdminCard() {
                     component="div"
                     sx={{ textAlign: "center" }}
                 >
-                    Event Name
+                    {title}
                 </Typography>
                 <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ textAlign: "center" }}
                 >
-                    Description Description Description Description Description
-                    Description Description Description Description Description
-                    Description Description Description Description
-                    Description...
+                    {description}
                 </Typography>
             </CardContent>
             <CardActions

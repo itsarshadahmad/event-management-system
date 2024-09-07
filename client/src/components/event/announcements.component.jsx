@@ -9,10 +9,10 @@ export default function Announcements() {
         <Card sx={{ width: "100%", my: "16px" }}>
             <CardContent>
                 <Typography variant="h5" component="div">
-                    Announcements title
+                    Please bring your laptop
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Announcements description
+                    Please bring your laptop to code with instructor.
                 </Typography>
                 <Typography variant="body2">Date</Typography>
             </CardContent>

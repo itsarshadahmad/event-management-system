@@ -16,9 +16,10 @@ import axios from "axios";
 import { API_URL } from "../../environment/constant";
 
 export default function SignIn() {
-  const [forgotPasswordPage, setForgotPasswordPage] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+    const [forgotPasswordPage, setForgotPasswordPage] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [token, setToken] = useState("");
 
   const openForgotPasswordPopup = (event) => {
     event.preventDefault();
