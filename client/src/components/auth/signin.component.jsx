@@ -57,6 +57,8 @@ export default function SignIn() {
                     onSubmit={handleSubmit}
                     noValidate
                     sx={{ mt: 1 }}
+                    action="/signin"
+                    method="POST"
                 >
                     <TextField
                         margin="normal"
