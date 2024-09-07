@@ -9,12 +9,9 @@ const theme = createTheme({
         // primary: {
         //     main: "#393E46",
         //     contrastText: "#FFF",
-        //     dark: "#222831",
         // },
         // secondary: {
         //     main: "#00ADB5",
-        //     contrastText: "#FFF",
-        //     white: "#EEEEEE",
         // },
         error: {
             main: "#FF4444",

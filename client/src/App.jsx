@@ -10,10 +10,11 @@ import EventAdmin from "./components/home/event-admin.component";
 import AddAnnouncement from "./components/home/add-announcement.component";
 import AddKeySpeaker from "./components/event/add-key-speaker.component";
 import Error from "./components/partials/error.component";
+import Logout from "./components/auth/logout.component";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/add-speaker",
         element: (
             <Partials>
                 <AddKeySpeaker />
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: "/home",
+        path: "/",
         element: (
             <Partials>
                 <Home />
@@ -81,6 +82,14 @@ const router = createBrowserRouter([
         element: (
             <Partials>
                 <NewPassword />
+            </Partials>
+        ),
+    },
+    {
+        path: "/logout",
+        element: (
+            <Partials>
+                <Logout />
             </Partials>
         ),
     },

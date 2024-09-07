@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom";
 
 const settings = ["New Event", "Dashboard", "Logout"];
 
@@ -18,9 +19,17 @@ export default function Navbar({ navButtonPage }) {
     if (!navButtonPage) {
         navButtonPage = "signin";
     }
+
     const [isAuth, setIsAuth] = useState(false);
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
+
+    const token = localStorage.getItem("token");
+    useEffect(() => {
+        if (token) {
+            setIsAuth(true);
+        }
+    }, [token]);
 
     // const handleToggleAuth = (event) => {
     //     event.preventDefault();
@@ -131,9 +140,9 @@ export default function Navbar({ navButtonPage }) {
                                             key={setting}
                                             onClick={handleCloseUserMenu}
                                         >
-                                            <Typography textAlign="center">
+                                            <Link to={`/${setting}`}>
                                                 {setting}
-                                            </Typography>
+                                            </Link>
                                         </MenuItem>
                                     ))}
                                 </Menu>
